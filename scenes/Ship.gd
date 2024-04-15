@@ -13,6 +13,8 @@ var over_landing_field: LandingField = null
 var stranded_on: CollisionObject2D = null
 
 func _ready():
+	
+	# smooth out fast spinning eg, after bouncing against a wall
 	inertia = 20;
 	
 	cooldown_timer.one_shot = true
@@ -33,8 +35,6 @@ func _physics_process(delta):
 	
 	prev_velocity = linear_velocity;
 
-	# Idea: integrate angular_velocity to smooth out fast spinning eg, after bouncing against a wall
-	# max(1, 1/abs(angular_velocity)) * 	
 	var rotation_change = rotationSpeed * delta * 100;
 	
 	if(Input.is_action_pressed("left")):

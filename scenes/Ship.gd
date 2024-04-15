@@ -23,15 +23,13 @@ func _ready():
 	add_child(stranded_timer)
 	
 
-func _on_stranded():
-	game.game_over_lost("poor turtle")
+func drone_direction() -> Vector2: 
+	return (direction_marker.global_position - global_position).normalized()
 
 func _physics_process(delta):
 	
 	#Idea: making it harder to navigate by adding some randomness to rotation 
 	#add_constant_torque(100)
-	
-	var direction = (direction_marker.global_position - global_position).normalized()
 	
 	prev_velocity = linear_velocity;
 
@@ -46,7 +44,7 @@ func _physics_process(delta):
 	else:
 		angular_velocity /= 1 + delta;
 		
-	var impulse = thrust * direction * delta * 10;	
+	var impulse = thrust * drone_direction() * delta * 10;	
 
 	if(Input.is_action_pressed("forward")):
 		apply_impulse( + impulse)	
@@ -81,9 +79,12 @@ func _on_landing_area_body_exited(body):
 
 func _on_stranded_area_body_entered(body):
 	stranded_on = body
-	# todo: check that there is no movement, or that drone is on the floor, instead of ceiling
 	stranded_timer.start(4)
 
 func _on_stranded_area_body_exited(_body):
 	stranded_on = null
 	stranded_timer.stop()
+	
+func _on_stranded():
+	if(drone_direction().y > 0):
+		game.game_over_lost("poor turtle")

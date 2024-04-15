@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjdqefx7f7ctv"]
+
+[ext_resource type="Script" path="res://scenes/LevelObjects.gd" id="1_xafm0"]
+[ext_resource type="Texture2D" uid="uid://bfoi8gxek0f4b" path="res://graphics/rock.jpeg" id="2_mfprp"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wbxrl"]
+
+[node name="LevelObjects" type="StaticBody2D"]
+script = ExtResource("1_xafm0")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+occluder = SubResource("OccluderPolygon2D_wbxrl")
+
+[node name="Rock" type="Polygon2D" parent="."]
+modulate = Color(0.0784314, 0.0784314, 0.0784314, 0.941176)
+light_mask = 2
+visibility_layer = 2
+z_index = 1
+texture_repeat = 2
+texture = ExtResource("2_mfprp")
+polygon = PackedVector2Array(-2482, -1370, -1782, -660, -2550, -878, -2550, -878, -2550, -878, -2550, -878)

@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://chk3bcl33jjts"]
+
+[ext_resource type="Script" path="res://scenes/Ship.gd" id="1_31u16"]
+[ext_resource type="Texture2D" uid="uid://b182tskrvi1wx" path="res://graphics/Drone.png" id="2_sbfwb"]
+[ext_resource type="AudioStream" uid="uid://cya8umrjdxo2i" path="res://graphics/collision.mp3" id="3_wlfr5"]
+[ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://graphics/light.webp" id="4_e5125"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odv1m"]
+bounce = 0.5
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
+radius = 4.0029
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
+size = Vector2(56.5, 3.5)
+
+[node name="ship" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_odv1m")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_31u16")
+rotationSpeed = 80
+thrust = 25.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(0, -9)
+texture = ExtResource("2_sbfwb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+rotation = 1.5708
+scale = Vector2(-2.99782, 2.41081)
+shape = SubResource("CapsuleShape2D_g1jy6")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -15.4116)
+
+[node name="LandingArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingArea"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_k0x2f")
+
+[node name="StrandedArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StrandedArea"]
+position = Vector2(0, -21)
+shape = SubResource("RectangleShape2D_k0x2f")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wlfr5")
+
+[node name="PointLight2DInner" type="PointLight2D" parent="."]
+energy = 0.9
+range_item_cull_mask = 3
+shadow_enabled = true
+texture = ExtResource("4_e5125")
+texture_scale = 6.12
+
+[node name="PointLight2DOuter" type="PointLight2D" parent="."]
+energy = 3.0
+range_item_cull_mask = 2
+texture = ExtResource("4_e5125")
+texture_scale = 6.12
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_collision"]
+[connection signal="body_entered" from="LandingArea" to="." method="_on_landing_area_body_entered"]
+[connection signal="body_exited" from="LandingArea" to="." method="_on_landing_area_body_exited"]
+[connection signal="body_entered" from="StrandedArea" to="." method="_on_stranded_area_body_entered"]
+[connection signal="body_exited" from="StrandedArea" to="." method="_on_stranded_area_body_exited"]

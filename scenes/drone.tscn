@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://chk3bcl33jjts"]
 
-[ext_resource type="Script" path="res://scenes/Ship.gd" id="1_31u16"]
+[ext_resource type="Script" path="res://scenes/Drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://b182tskrvi1wx" path="res://graphics/Drone.png" id="2_sbfwb"]
 [ext_resource type="AudioStream" uid="uid://cya8umrjdxo2i" path="res://graphics/collision.mp3" id="3_wlfr5"]
 [ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://graphics/light.webp" id="4_e5125"]
@@ -15,7 +15,7 @@ height = 24.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
 size = Vector2(56.5, 3.5)
 
-[node name="ship" type="RigidBody2D"]
+[node name="drone" type="RigidBody2D"]
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_odv1m")
 max_contacts_reported = 1

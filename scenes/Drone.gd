@@ -14,8 +14,9 @@ var stranded_on: CollisionObject2D = null
 
 func _ready():
 	
-	# smooth out fast spinning eg, after bouncing against a wall
 	inertia = 20;
+	
+	print("pads" + str(Input.get_connected_joypads()))
 	
 	cooldown_timer.one_shot = true
 	add_child(cooldown_timer)
@@ -36,18 +37,28 @@ func _physics_process(delta):
 	prev_velocity = linear_velocity;
 
 	var rotation_change = rotationSpeed * delta * 100;
+	var impulse = thrust * drone_direction() * delta * 10;	
+	
+	var steer_rotation = Input.get_axis("left", "right")
+	var steer_thrust = Input.get_axis("backward", "forward")
+	
+	print(Input.get_action_strength("left"))
+	print(Input.get_action_strength("right")) 
 	
 	if(Input.is_action_pressed("left")):
 		apply_torque( - rotation_change)
 	elif (Input.is_action_pressed("right")):
 		apply_torque( + rotation_change)
+	elif (steer_rotation != 0):
+		apply_torque( steer_rotation * rotation_change)
 	else:
+		# smooth out spinning eg, after bouncing against a wall
 		angular_velocity /= 1 + delta;
-		
-	var impulse = thrust * drone_direction() * delta * 10;	
-
+	
 	if(Input.is_action_pressed("forward")):
 		apply_impulse( + impulse)	
+	elif(steer_thrust != 0):
+		apply_impulse( steer_thrust * impulse )
 
 	# idea: no or less thrust if ship is moving backwards already
 	# print(str(linear_velocity.angle()) +" "+ str(direction.angle()))

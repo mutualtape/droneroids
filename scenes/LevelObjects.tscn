@@ -20,4 +20,3 @@ visibility_layer = 2
 z_index = 1
 texture_repeat = 2
 texture = ExtResource("2_mfprp")
-polygon = PackedVector2Array(-2482, -1370, -1782, -660, -2550, -878, -2550, -878, -2550, -878, -2550, -878)

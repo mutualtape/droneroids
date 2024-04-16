@@ -1,6 +1,6 @@
 .godot
 .DS_Store
 addons/godot-git-plugin
-*.kra-autosave.kra
+*-autosave.kra
 *~
 graphics/Song.mp3*

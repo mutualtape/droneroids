@@ -15,7 +15,7 @@ height = 24.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
 size = Vector2(56.5, 3.5)
 
-[node name="drone" type="RigidBody2D"]
+[node name="Drone" type="RigidBody2D"]
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_odv1m")
 max_contacts_reported = 1

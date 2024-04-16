@@ -12,6 +12,8 @@ func _ready():
 		bitMap.create_from_image_alpha(sprite.texture.get_image())
 	
 		# TODO: add transparent lines to bitMap to fix tube issue 
+		for x in bitMap.get_size().x:
+			bitMap.set_bit(x, bitMap.get_size().y/2, 0)
 	
 		var imgpols = bitMap.opaque_to_polygons(Rect2(Vector2(), bitMap.get_size()), 2)
 		
@@ -24,11 +26,14 @@ func _ready():
 			var collision = CollisionPolygon2D.new()
 			collision.polygon = pol;
 			
-			$Rock.polygon = pol
-			$LightOccluder2D.occluder.polygon = pol
+			var rock = $Rock.duplicate()
+			rock.polygon = pol
+			add_child(rock)
 			
-			#collision.modulate = Color(233,0,0,0.5)
-			add_child(collision);
-
-func _process(_delta):
-	pass
+			var lightOccluder: LightOccluder2D = $LightOccluder2D.duplicate()
+			lightOccluder.occluder = OccluderPolygon2D.new()
+			lightOccluder.occluder.polygon = pol
+			
+			add_child(lightOccluder)
+			
+			add_child(collision)

@@ -16,8 +16,6 @@ func _ready():
 	
 	inertia = 20;
 	
-	print("pads" + str(Input.get_connected_joypads()))
-	
 	cooldown_timer.one_shot = true
 	add_child(cooldown_timer)
 	
@@ -42,9 +40,6 @@ func _physics_process(delta):
 	var steer_rotation = Input.get_axis("left", "right")
 	var steer_thrust = Input.get_axis("backward", "forward")
 	
-	print(Input.get_action_strength("left"))
-	print(Input.get_action_strength("right")) 
-	
 	if(Input.is_action_pressed("left")):
 		apply_torque( - rotation_change)
 	elif (Input.is_action_pressed("right")):
@@ -61,7 +56,7 @@ func _physics_process(delta):
 		apply_impulse( steer_thrust * impulse )
 
 	# idea: no or less thrust if ship is moving backwards already
-	# print(str(linear_velocity.angle()) +" "+ str(direction.angle()))
+	# linear_velocity.angle() direction.angle()
 	elif(Input.is_action_pressed("backward")):
 		apply_impulse( - impulse / 4)	
 

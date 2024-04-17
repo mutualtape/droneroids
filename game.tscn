@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://584xc4ljf760"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_g4isr"]
-[ext_resource type="PackedScene" uid="uid://chk3bcl33jjts" path="res://scenes/Drone.tscn" id="3_2ke1u"]
+[ext_resource type="PackedScene" uid="uid://chk3bcl33jjts" path="res://scenes/drone.tscn" id="3_2ke1u"]
 [ext_resource type="PackedScene" uid="uid://boy500gybuoe1" path="res://levels/level_test.tscn" id="3_ca7yl"]
 [ext_resource type="AudioStream" uid="uid://tkqsklb426h4" path="res://graphics/Song.mp3" id="4_hikr2"]
 
@@ -65,3 +65,6 @@ vertical_alignment = 1
 stream = ExtResource("4_hikr2")
 volume_db = -20.0
 autoplay = true
+
+[connection signal="over_field" from="Drone" to="." method="_game_over_win"]
+[connection signal="stranded" from="Drone" to="." method="_game_over_stranded"]

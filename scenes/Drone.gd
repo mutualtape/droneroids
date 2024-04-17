@@ -1,9 +1,13 @@
 extends RigidBody2D
 
-@onready var game : Game = $/root/Game
 @onready var direction_marker : Marker2D = $Marker2D
 @onready var cooldown_timer : Timer = Timer.new()
 @onready var stranded_timer : Timer = Timer.new()
+
+var collision_counter: int = 0
+
+signal over_field(type: LandingField.Type, field: LandingField)
+signal stranded(on: CollisionObject2D)
 
 @export var rotationSpeed: int 
 @export var thrust: float 
@@ -63,17 +67,15 @@ func _physics_process(delta):
 func collision():
 	if(cooldown_timer.is_stopped()):
 		cooldown_timer.start(0.5)
-		game.collision_counter += 1
+		collision_counter += 1
 		$AudioStreamPlayer.play()
 	
 
 func _on_collision(_body : CollisionObject2D):
 	var impact = prev_velocity.length()
 	if(impact > 100): collision()
-	if(over_landing_field != null 
-	and over_landing_field.type == over_landing_field.Type.TARGET): 
-		game.game_over_win()
-
+	if(over_landing_field != null): over_field.emit(over_landing_field.type, over_landing_field) 
+	
 func _on_landing_area_body_entered(body):
 	if(body is LandingField):
 		#Idea: start a timer to make sure to be over the field for some time before landing
@@ -88,9 +90,9 @@ func _on_stranded_area_body_entered(body):
 	stranded_timer.start(4)
 
 func _on_stranded_area_body_exited(_body):
-	stranded_on = null
 	stranded_timer.stop()
+	stranded_on = null
 	
 func _on_stranded():
 	if(drone_direction().y > 0):
-		game.game_over_lost("poor turtle")
+		stranded.emit(stranded_on)

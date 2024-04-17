@@ -21,8 +21,8 @@ physics_material_override = SubResource("PhysicsMaterial_odv1m")
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_31u16")
-rotationSpeed = 80
-thrust = 25.0
+rotationSpeed = 100
+thrust = 60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 0

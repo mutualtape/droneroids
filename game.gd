@@ -1,13 +1,15 @@
 extends Node2D
 class_name Game
 
-var collision_counter: int = 0
-
 func _process(_delta):
-	$UI/Touches.text = str(collision_counter)
+	$UI/Touches.text = str($Drone.collision_counter)
+		
+func _game_over_win(type, field):
 	
-func game_over_win():
+	if(type != LandingField.Type.TARGET): return
+
 	var text
+	var collision_counter = $Drone.collision_counter
 	if(collision_counter == 0): text = "GOAT!!!"
 	elif(collision_counter <= 2): text = "Rockstar!"
 	elif(collision_counter <= 5): text = "Master!"
@@ -15,10 +17,14 @@ func game_over_win():
 	elif(collision_counter <= 20): text = "You can Do better"
 	else: text = "hardly Survived" 
 	game_over(str(collision_counter) + " hits:\n" + text)
-	
-func game_over_lost(message):
-	game_over(message)
+
+func _game_over_stranded(collision_node):
+	game_over("poor turtle")		
 	
 func game_over(message):
 	$UI/Panel/Message.text = message
 	$UI/Panel.visible = true
+
+
+func _on_drone_stranded(on):
+	pass # Replace with function body.

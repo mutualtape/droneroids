@@ -24,7 +24,3 @@ func _game_over_stranded(collision_node):
 func game_over(message):
 	$UI/Panel/Message.text = message
 	$UI/Panel.visible = true
-
-
-func _on_drone_stranded(on):
-	pass # Replace with function body.

@@ -1,3 +1,4 @@
+@tool
 extends StaticBody2D
 
 """
@@ -39,6 +40,9 @@ func _ready():
 			rock.light_mask = 2 # matches drone's outer light cull mask
 			rock.modulate = Color(0.2,0.2,0.2)
 			sprite.add_child(rock)
+		
+		# dont apply collision and light occluder polygons in editor
+		if(Engine.is_editor_hint()): continue
 		
 		for imgpol in imgpols:
 			var pol = PackedVector2Array()

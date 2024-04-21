@@ -5,9 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dam2rd7rnffkm" path="res://graphics/Level1.png" id="2_roabq"]
 [ext_resource type="PackedScene" uid="uid://cabkiwe44ppql" path="res://scenes/LandingField.tscn" id="3_odmpg"]
 
-[node name="LevelTest" type="Node2D"]
+[node name="LevelCave" type="Node2D"]
 
 [node name="LevelShape" parent="." instance=ExtResource("1_vlfau")]
+position = Vector2(1025, 438)
 tiled_texture = ExtResource("2_0ebe1")
 level_shape = ExtResource("2_roabq")
 
@@ -15,13 +16,13 @@ level_shape = ExtResource("2_roabq")
 position = Vector2(-824, -360)
 
 [node name="TargetField" parent="." instance=ExtResource("3_odmpg")]
-position = Vector2(730, -327)
+position = Vector2(2573, -349)
 type = 1
 
 [node name="Label" type="Label" parent="."]
-offset_left = -667.0
-offset_top = 95.0
-offset_right = 52.9999
-offset_bottom = 153.0
-scale = Vector2(0.155313, 0.155313)
+offset_left = -492.0
+offset_top = 636.0
+offset_right = 228.0
+offset_bottom = 694.0
+scale = Vector2(0.345271, 0.345271)
 text = "Haha, wrong way ;)"

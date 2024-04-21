@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://584xc4ljf760"]
+[gd_scene load_steps=6 format=3 uid="uid://584xc4ljf760"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_g4isr"]
 [ext_resource type="PackedScene" uid="uid://chk3bcl33jjts" path="res://scenes/drone.tscn" id="3_2ke1u"]
-[ext_resource type="PackedScene" uid="uid://boy500gybuoe1" path="res://levels/level_test.tscn" id="3_ca7yl"]
+[ext_resource type="PackedScene" uid="uid://boy500gybuoe1" path="res://levels/level_cave_test.tscn" id="3_ca7yl"]
 [ext_resource type="AudioStream" uid="uid://tkqsklb426h4" path="res://graphics/Song.mp3" id="4_hikr2"]
+[ext_resource type="PackedScene" uid="uid://btfy6qvy32uja" path="res://levels/level_gravity.tscn" id="4_hsavr"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_g4isr")
@@ -16,13 +17,15 @@ offset_bottom = 4241.0
 color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [node name="Drone" parent="." instance=ExtResource("3_2ke1u")]
-position = Vector2(27, 34)
+position = Vector2(542, 303)
 rotationSpeed = 85
 thrust = 30.0
 
-[node name="LevelTest" parent="." instance=ExtResource("3_ca7yl")]
-position = Vector2(3070, 1379)
-scale = Vector2(3.69352, 3.69352)
+[node name="LevelCave" parent="." instance=ExtResource("3_ca7yl")]
+position = Vector2(1366, 678)
+
+[node name="LevelGravity" parent="." instance=ExtResource("4_hsavr")]
+visible = false
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -31,10 +34,11 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
-offset_top = -83.0
+offset_top = -63.9999
 offset_right = 109.0
-offset_bottom = -16.0
+offset_bottom = 3.00006
 grow_vertical = 0
+scale = Vector2(0.779591, 0.779591)
 size_flags_horizontal = 0
 size_flags_vertical = 10
 text = "0"

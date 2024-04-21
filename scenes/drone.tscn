@@ -9,11 +9,11 @@
 bounce = 0.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
-radius = 4.0029
-height = 24.0
+radius = 2.00145
+height = 14.9327
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
-size = Vector2(56.5, 3.5)
+size = Vector2(40.25, 3.5)
 
 [node name="Drone" type="RigidBody2D"]
 collision_mask = 3
@@ -26,34 +26,36 @@ thrust = 60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 0
-position = Vector2(0, -9)
+position = Vector2(0, 1)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_sbfwb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
+position = Vector2(0, 2)
 rotation = 1.5708
 scale = Vector2(-2.99782, 2.41081)
 shape = SubResource("CapsuleShape2D_g1jy6")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -15.4116)
+position = Vector2(0, -10.4116)
 
 [node name="LandingArea" type="Area2D" parent="."]
+position = Vector2(0, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LandingArea"]
-position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_k0x2f")
 
 [node name="StrandedArea" type="Area2D" parent="."]
+position = Vector2(0, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StrandedArea"]
-position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_k0x2f")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wlfr5")
 
 [node name="PointLight2DInner" type="PointLight2D" parent="."]
+position = Vector2(0, 4)
 energy = 0.9
 shadow_enabled = true
 texture = ExtResource("4_e5125")
@@ -61,10 +63,11 @@ texture_scale = 6.12
 
 [node name="PointLight2DOuter" type="PointLight2D" parent="."]
 visibility_layer = 0
-energy = 3.0
+position = Vector2(0, 4)
+energy = 5.0
 range_item_cull_mask = 2
 texture = ExtResource("4_e5125")
-texture_scale = 6.12
+texture_scale = 2.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true

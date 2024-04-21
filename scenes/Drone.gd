@@ -22,8 +22,6 @@ class PropellerInfo:
 	var percentage_shown: float = randf()
 	var sign: float = -1
 	func _init(n): node = n
-		
-
 @onready var propeller_left = PropellerInfo.new($PropellerLeft)
 @onready var propeller_right = PropellerInfo.new($PropellerRight)
 

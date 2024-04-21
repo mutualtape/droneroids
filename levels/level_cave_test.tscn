@@ -17,6 +17,7 @@ position = Vector2(-824, -360)
 
 [node name="TargetField" parent="." instance=ExtResource("3_odmpg")]
 position = Vector2(2573, -349)
+scale = Vector2(2.79992, 1)
 type = 1
 
 [node name="Label" type="Label" parent="."]

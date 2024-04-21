@@ -13,16 +13,17 @@ config_version=5
 config/name="Droneroids"
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://graphics/Drone.png"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="Gravitasteroids"
+project/assembly_name="Droneroids"
 
 [editor]
 

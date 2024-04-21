@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://chk3bcl33jjts"]
+[gd_scene load_steps=9 format=3 uid="uid://chk3bcl33jjts"]
 
 [ext_resource type="Script" path="res://scenes/Drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://b182tskrvi1wx" path="res://graphics/Drone.png" id="2_sbfwb"]
+[ext_resource type="Texture2D" uid="uid://df77yk5vsqk78" path="res://graphics/DronePropeller.png" id="3_nc1h2"]
 [ext_resource type="AudioStream" uid="uid://cya8umrjdxo2i" path="res://graphics/collision.mp3" id="3_wlfr5"]
 [ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://graphics/light.webp" id="4_e5125"]
 
@@ -9,7 +10,7 @@
 bounce = 0.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
-radius = 2.00145
+radius = 2.66861
 height = 14.9327
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
@@ -24,32 +25,51 @@ script = ExtResource("1_31u16")
 rotationSpeed = 100
 thrust = 60.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="."]
 light_mask = 0
 position = Vector2(0, 1)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.049, 0.049)
 texture = ExtResource("2_sbfwb")
+
+[node name="PropellerLeft" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(-20, -7)
+scale = Vector2(0.049, 0.049)
+texture = ExtResource("3_nc1h2")
+region_enabled = true
+region_rect = Rect2(0, 0, 682, 26)
+
+[node name="PropellerRight" type="Sprite2D" parent="."]
+light_mask = 0
+position = Vector2(20, -7)
+scale = Vector2(0.049, 0.049)
+texture = ExtResource("3_nc1h2")
+region_enabled = true
+region_rect = Rect2(0, 0, 682, 26)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 rotation = 1.5708
 scale = Vector2(-2.99782, 2.41081)
 shape = SubResource("CapsuleShape2D_g1jy6")
+debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -10.4116)
 
 [node name="LandingArea" type="Area2D" parent="."]
-position = Vector2(0, 10)
+position = Vector2(0, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LandingArea"]
 shape = SubResource("RectangleShape2D_k0x2f")
+debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
 [node name="StrandedArea" type="Area2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StrandedArea"]
 shape = SubResource("RectangleShape2D_k0x2f")
+debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wlfr5")
@@ -63,7 +83,7 @@ texture_scale = 6.12
 
 [node name="PointLight2DOuter" type="PointLight2D" parent="."]
 visibility_layer = 0
-position = Vector2(0, 4)
+position = Vector2(0, 3)
 energy = 5.0
 range_item_cull_mask = 2
 texture = ExtResource("4_e5125")

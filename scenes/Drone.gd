@@ -16,6 +16,17 @@ var prev_velocity: Vector2 = Vector2.ZERO
 var over_landing_field: LandingField = null
 var stranded_on: CollisionObject2D = null
 
+@onready var propeller_region_rect: Rect2 = $PropellerLeft.region_rect 
+class PropellerInfo: 
+	var node: Sprite2D
+	var percentage_shown: float = randf()
+	var sign: float = -1
+	func _init(n): node = n
+		
+
+@onready var propeller_left = PropellerInfo.new($PropellerLeft)
+@onready var propeller_right = PropellerInfo.new($PropellerRight)
+
 func _ready():
 	
 	inertia = 20;
@@ -26,7 +37,6 @@ func _ready():
 	stranded_timer.one_shot = true
 	stranded_timer.connect("timeout", _on_stranded)
 	add_child(stranded_timer)
-	
 
 func drone_direction() -> Vector2: 
 	return (direction_marker.global_position - global_position).normalized()
@@ -44,6 +54,7 @@ func _physics_process(delta):
 	var steer_rotation = Input.get_axis("left", "right")
 	var steer_thrust = Input.get_axis("backward", "forward")
 	
+	# apply rotation
 	if(Input.is_action_pressed("left")):
 		apply_torque( - rotation_change)
 	elif (Input.is_action_pressed("right")):
@@ -54,15 +65,44 @@ func _physics_process(delta):
 		# smooth out spinning eg, after bouncing against a wall
 		angular_velocity /= 1 + delta;
 	
+	# apply thurst
 	if(Input.is_action_pressed("forward")):
 		apply_impulse( + impulse)	
 	elif(steer_thrust != 0):
 		apply_impulse( steer_thrust * impulse )
-
 	# idea: no or less thrust if ship is moving backwards already
 	# linear_velocity.angle() direction.angle()
 	elif(Input.is_action_pressed("backward")):
 		apply_impulse( - impulse / 4)	
+		
+func _process(delta):
+	
+	var speed = 0.6 * delta \
+		if get_linear_velocity().length() > 1 \
+		else 0.2 * delta 
+	var thrust = max(
+		Input.get_action_strength("forward"), 
+		Input.get_action_strength("backward"))
+	animate_propeller(propeller_left, 
+		speed + speed * max(Input.get_action_strength("right"), thrust))
+	animate_propeller(propeller_right, 
+		speed + speed * max(Input.get_action_strength("left"), thrust))
+	
+func animate_propeller(propeller: PropellerInfo, rotation_speed):
+	propeller.percentage_shown += propeller.sign * 20 * rotation_speed
+	if(propeller.percentage_shown <= 0): propeller.sign = 1
+	elif(propeller.percentage_shown >= 1): propeller.sign = -1
+	
+	var new_width = propeller_region_rect.size.x * propeller.percentage_shown
+	var diff = propeller_region_rect.size.x - new_width  
+	
+	#print(propeller_percentage_shown, " ", diff/2, "  ", new_width)
+	
+	propeller.node.region_rect = Rect2(
+		diff/2,
+		propeller_region_rect.position.y,
+		new_width,
+		propeller_region_rect.size.y) 
 
 func collision():
 	if(cooldown_timer.is_stopped()):

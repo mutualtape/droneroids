@@ -87,6 +87,7 @@ func _process(delta):
 		speed + speed * max(Input.get_action_strength("left"), thrust))
 	
 func animate_propeller(propeller: PropellerInfo, rotation_speed):
+	
 	propeller.percentage_shown += propeller.sign * 20 * rotation_speed
 	if(propeller.percentage_shown <= 0): propeller.sign = 1
 	elif(propeller.percentage_shown >= 1): propeller.sign = -1

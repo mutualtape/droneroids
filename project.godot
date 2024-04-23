@@ -17,9 +17,7 @@ config/icon="res://graphics/Drone.png"
 
 [display]
 
-window/size/mode=2
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

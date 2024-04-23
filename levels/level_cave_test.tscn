@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://boy500gybuoe1"]
+[gd_scene load_steps=5 format=3 uid="uid://boy500gybuoe1"]
 
 [ext_resource type="PackedScene" uid="uid://bjdqefx7f7ctv" path="res://scenes/LevelShape2D.tscn" id="1_vlfau"]
+[ext_resource type="Texture2D" uid="uid://bfoi8gxek0f4b" path="res://graphics/rock.jpeg" id="2_p5ts5"]
 [ext_resource type="Texture2D" uid="uid://dam2rd7rnffkm" path="res://graphics/Level1.png" id="2_roabq"]
 [ext_resource type="PackedScene" uid="uid://cabkiwe44ppql" path="res://scenes/LandingField.tscn" id="3_odmpg"]
 
@@ -8,6 +9,7 @@
 
 [node name="LevelShape" parent="." instance=ExtResource("1_vlfau")]
 position = Vector2(1025, 438)
+tiled_texture = ExtResource("2_p5ts5")
 level_shape = ExtResource("2_roabq")
 
 [node name="StartingField" parent="." instance=ExtResource("3_odmpg")]

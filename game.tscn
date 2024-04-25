@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://584xc4ljf760"]
+[gd_scene load_steps=7 format=3 uid="uid://584xc4ljf760"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_g4isr"]
+[ext_resource type="PackedScene" uid="uid://bmkhgbp7f25nu" path="res://levels/level_veins_1.tscn" id="3_0af0h"]
 [ext_resource type="PackedScene" uid="uid://chk3bcl33jjts" path="res://scenes/drone.tscn" id="3_2ke1u"]
 [ext_resource type="PackedScene" uid="uid://boy500gybuoe1" path="res://levels/level_cave_test.tscn" id="3_ca7yl"]
 [ext_resource type="AudioStream" uid="uid://tkqsklb426h4" path="res://graphics/Song.mp3" id="4_hikr2"]
@@ -20,6 +21,10 @@ color = Color(0.152941, 0.152941, 0.152941, 1)
 position = Vector2(542, 303)
 rotationSpeed = 85
 thrust = 30.0
+
+[node name="LevelVein" parent="." instance=ExtResource("3_0af0h")]
+visible = false
+position = Vector2(546, 209)
 
 [node name="LevelCave" parent="." instance=ExtResource("3_ca7yl")]
 position = Vector2(1366, 678)

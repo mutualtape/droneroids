@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://584xc4ljf760"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_g4isr"]
-[ext_resource type="PackedScene" uid="uid://dt1gq4g3p6i43" path="res://levels/level_veins_1.tscn" id="2_66xcq"]
-[ext_resource type="PackedScene" uid="uid://chk3bcl33jjts" path="res://scenes/drone.tscn" id="3_esjgk"]
-[ext_resource type="AudioStream" uid="uid://tkqsklb426h4" path="res://graphics/Song.mp3" id="4_hikr2"]
+[ext_resource type="PackedScene" uid="uid://dt1gq4g3p6i43" path="res://scenes/levels/level_veins_1.tscn" id="2_66xcq"]
+[ext_resource type="PackedScene" uid="uid://chk3bcl33jjts" path="res://scenes/common/drone.tscn" id="3_esjgk"]
+[ext_resource type="AudioStream" uid="uid://tkqsklb426h4" path="res://assets/Song.mp3" id="4_hikr2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_g4isr")
@@ -14,7 +14,7 @@ offset_left = -2761.0
 offset_top = -2478.0
 offset_right = 7655.0
 offset_bottom = 4241.0
-color = Color(0.117647, 0.0156863, 0.0156863, 1)
+color = Color(0.121569, 0.0117647, 0.0117647, 1)
 
 [node name="Drone" parent="." instance=ExtResource("3_esjgk")]
 

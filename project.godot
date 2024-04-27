@@ -13,7 +13,7 @@ config_version=5
 config/name="Droneroids"
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://graphics/Drone.png"
+config/icon="res://assets/Drone.png"
 
 [display]
 
@@ -36,7 +36,7 @@ import/fbx/enabled=false
 [gui]
 
 theme/default_theme_scale=3.0
-theme/custom_font="res://graphics/joystix monospace.otf"
+theme/custom_font="res://assets/joystix monospace.otf"
 
 [input]
 

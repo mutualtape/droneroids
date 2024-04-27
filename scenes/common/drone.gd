@@ -6,6 +6,7 @@ class_name Drone
 @onready var stranded_timer : Timer = Timer.new()
 
 var energy: float = 100
+var energy_max: float = 100
 
 signal over_field(type: LandingField.Type, field: LandingField)
 signal stranded(on: CollisionObject2D)

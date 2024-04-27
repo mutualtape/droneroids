@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://chk3bcl33jjts"]
+[gd_scene load_steps=12 format=3 uid="uid://chk3bcl33jjts"]
 
 [ext_resource type="Script" path="res://scenes/common/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://assets/graphics/NanodroneBody.png" id="2_2kgip"]
-[ext_resource type="Texture2D" uid="uid://2x2p5r3nxvhb" path="res://assets/graphics/NanodronePropeller.png" id="3_w0ccn"]
+[ext_resource type="Texture2D" uid="uid://b1lqtlixbkpx0" path="res://assets/graphics/DronePropellerLeft.png" id="3_frr3t"]
 [ext_resource type="AudioStream" uid="uid://cya8umrjdxo2i" path="res://assets/collision.mp3" id="3_wlfr5"]
+[ext_resource type="Texture2D" uid="uid://bpxekkn1lfioq" path="res://assets/graphics/DronePropellerRight.png" id="4_a8eon"]
 [ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://assets/graphics/light.webp" id="4_e5125"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odv1m"]
@@ -12,8 +13,11 @@ bounce = 0.5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7rgji"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
-radius = 17.0
-height = 60.0
+radius = 13.0
+height = 46.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3at2d"]
+size = Vector2(48.5101, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
 size = Vector2(118, 10)
@@ -34,28 +38,28 @@ light_mask = 0
 texture_filter = 2
 material = SubResource("ShaderMaterial_7rgji")
 use_parent_material = true
-position = Vector2(0, 7)
+position = Vector2(0, 8)
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("2_2kgip")
 
 [node name="PropellerLeft" type="Sprite2D" parent="."]
 light_mask = 0
-position = Vector2(-21, -17)
+position = Vector2(-21, -16)
 scale = Vector2(0.06, 0.06)
-texture = ExtResource("3_w0ccn")
+texture = ExtResource("3_frr3t")
 region_enabled = true
-region_rect = Rect2(-88.9135, 0, 840.572, 67.381)
+region_rect = Rect2(-5.72198, -5.19072, 844.16, 77.5327)
 
 [node name="PropellerRight" type="Sprite2D" parent="."]
 light_mask = 0
-position = Vector2(21, -17)
+position = Vector2(21, -16)
 scale = Vector2(0.06, 0.06)
-texture = ExtResource("3_w0ccn")
+texture = ExtResource("4_a8eon")
 region_enabled = true
-region_rect = Rect2(-91.8543, -2.40836, 845.156, 70.2362)
+region_rect = Rect2(-100.678, -4, 853.678, 74.7131)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(7.04731e-19, 4)
+position = Vector2(0, 1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g1jy6")
 debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
@@ -64,16 +68,15 @@ debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 position = Vector2(0, -10.4116)
 
 [node name="LandingArea" type="Area2D" parent="."]
-position = Vector2(0, 32)
+position = Vector2(0, 25)
 scale = Vector2(0.779016, 1.03319)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LandingArea"]
-position = Vector2(0, -5)
-shape = SubResource("RectangleShape2D_k0x2f")
-debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
+position = Vector2(0, -9.27513)
+shape = SubResource("RectangleShape2D_3at2d")
 
 [node name="StrandedArea" type="Area2D" parent="."]
-position = Vector2(-1, -94)
+position = Vector2(-1, -93)
 scale = Vector2(0.768467, 0.994867)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StrandedArea"]

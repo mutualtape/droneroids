@@ -13,7 +13,7 @@ config_version=5
 config/name="Nanodrone"
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://assets/graphics/NanodroneBody.png"
+config/icon="res://assets/graphics/Nanodrone.png"
 
 [display]
 

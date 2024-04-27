@@ -8,7 +8,7 @@ func _ready():
 	$Level.replace_by(level_node)
 
 func _process(_delta):
-	$UI/Touches.text = str($Drone.collision_counter)
+	$UI/Touches.text = str(round($Drone.energy))
 		
 func _game_over_win(type, field):
 	

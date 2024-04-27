@@ -35,5 +35,6 @@ func _on_drone_detector_area_body_exited(body):
 
 func _on_direction_timer_timeout():
 	apply_impulse(random_dir() * 30)
+	if(drone): drone.energy_loss(1)
 	
 

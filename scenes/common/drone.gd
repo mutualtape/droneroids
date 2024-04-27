@@ -5,7 +5,7 @@ class_name Drone
 @onready var cooldown_timer : Timer = Timer.new()
 @onready var stranded_timer : Timer = Timer.new()
 
-var collision_counter: int = 0
+var energy: float = 100
 
 signal over_field(type: LandingField.Type, field: LandingField)
 signal stranded(on: CollisionObject2D)
@@ -107,9 +107,11 @@ func animate_propeller(propeller: PropellerInfo, rotation_speed):
 func collision():
 	if(cooldown_timer.is_stopped()):
 		cooldown_timer.start(0.5)
-		collision_counter += 1
+		energy_loss(prev_velocity.length()/100)
 		$AudioStreamPlayer.play()
 	
+func energy_loss(lost_energy):
+	energy -= lost_energy
 
 func _on_collision(_body : CollisionObject2D):
 	var impact = prev_velocity.length()

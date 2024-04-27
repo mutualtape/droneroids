@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://chk3bcl33jjts"]
 
-[ext_resource type="Script" path="res://scenes/Drone.gd" id="1_31u16"]
+[ext_resource type="Script" path="res://scenes/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://graphics/NanodroneBody.png" id="2_2mwqx"]
 [ext_resource type="Texture2D" uid="uid://2x2p5r3nxvhb" path="res://graphics/NanodronePropeller.png" id="3_gjken"]
 [ext_resource type="AudioStream" uid="uid://cya8umrjdxo2i" path="res://graphics/collision.mp3" id="3_wlfr5"]

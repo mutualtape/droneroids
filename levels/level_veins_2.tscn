@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmkhgbp7f25nu"]
+
+[ext_resource type="PackedScene" uid="uid://bjdqefx7f7ctv" path="res://scenes/level_shape_2D.tscn" id="1_gj7ts"]
+[ext_resource type="Texture2D" uid="uid://c384eyfk6ukgd" path="res://graphics/Vein Level 1.png" id="3_yxajv"]
+[ext_resource type="PackedScene" uid="uid://cabkiwe44ppql" path="res://scenes/landing_field.tscn" id="4_6opuc"]
+
+[node name="LevelVein" type="Node2D"]
+
+[node name="LevelShape" parent="." instance=ExtResource("1_gj7ts")]
+position = Vector2(-340, 228)
+scale = Vector2(3.98532, 3.98532)
+level_shape = ExtResource("3_yxajv")
+
+[node name="StartingField" parent="." instance=ExtResource("4_6opuc")]
+position = Vector2(-5, 123)
+
+[node name="TargetField" parent="." instance=ExtResource("4_6opuc")]
+position = Vector2(2489, -246)
+scale = Vector2(2.79992, 1)
+type = 1

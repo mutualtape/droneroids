@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cabkiwe44ppql"]
 
-[ext_resource type="Script" path="res://scenes/LandingField.gd" id="1_2tmtb"]
+[ext_resource type="Script" path="res://scenes/landing_field.gd" id="1_2tmtb"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_exsb3"]
 a = Vector2(20, 0)

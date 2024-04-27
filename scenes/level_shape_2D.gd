@@ -21,7 +21,7 @@ LightOccluder: solid and lucid (lucid: todo)
 func _ready():
 	
 	var bitMap: BitMap = BitMap.new()	
-	bitMap.create_from_image_alpha(level_shape.get_image(), 0.1)
+	bitMap.create_from_image_alpha(level_shape.get_image(), 0.95)
 
 	# add transparent lines to bitMap  
 	for x in bitMap.get_size().x:

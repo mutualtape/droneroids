@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://808j51pfs4yy"]
+
+[ext_resource type="Texture2D" uid="uid://cyyitr70fgktl" path="res://assets/graphics/red-blood-cell.png" id="1_6a1vp"]
+[ext_resource type="Script" path="res://scenes/common/blood_cell.gd" id="1_hnymj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_odj50"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_6jpnr"]
+polygon = PackedVector2Array(0, -119, -44, -112, -73, -98, -99, -76, -118, -49, -129, -19, -130, 0, -127, 29, -113, 61, -92, 86, -58, 109, -33, 118, 1, 122, 37, 117, 70, 104, 106, 73, 127, 31, 129, -14, 115, -55, 81, -94, 47, -112)
+
+[node name="BloodCell" type="RigidBody2D"]
+light_mask = 0
+position = Vector2(0, -1)
+collision_layer = 4
+collision_mask = 7
+gravity_scale = 0.0
+script = ExtResource("1_hnymj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.384314)
+light_mask = 0
+position = Vector2(0, 6)
+scale = Vector2(0.301309, 0.301309)
+texture = ExtResource("1_6a1vp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(12.04, 12.04)
+shape = SubResource("CircleShape2D_odj50")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_6jpnr")
+
+[node name="DroneDetectorArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DroneDetectorArea"]
+scale = Vector2(12.04, 12.04)
+shape = SubResource("CircleShape2D_odj50")
+
+[node name="DirectionTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="DroneDetectorArea" to="." method="_on_drone_detector_area_body_entered"]
+[connection signal="body_exited" from="DroneDetectorArea" to="." method="_on_drone_detector_area_body_exited"]
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Drone
 
 @onready var direction_marker : Marker2D = $Marker2D
 @onready var cooldown_timer : Timer = Timer.new()
@@ -10,7 +11,7 @@ signal over_field(type: LandingField.Type, field: LandingField)
 signal stranded(on: CollisionObject2D)
 
 @export var rotationSpeed: int 
-@export var thrust: float 
+@export var thrust: int 
 
 var prev_velocity: Vector2 = Vector2.ZERO
 var over_landing_field: LandingField = null
@@ -47,7 +48,7 @@ func _physics_process(delta):
 	prev_velocity = linear_velocity;
 
 	var rotation_change = rotationSpeed * delta * 100;
-	var impulse = thrust * drone_direction() * delta * 10;	
+	var impulse = thrust * drone_direction() * delta * 100;	
 	
 	var steer_rotation = Input.get_axis("left", "right")
 	var steer_thrust = Input.get_axis("backward", "forward")
@@ -61,17 +62,17 @@ func _physics_process(delta):
 		apply_torque( steer_rotation * rotation_change)
 	else:
 		# smooth out spinning eg, after bouncing against a wall
-		angular_velocity /= 1 + delta;
+		angular_velocity /= 1 + delta * 2;
 	
 	# apply thurst
 	if(Input.is_action_pressed("forward")):
-		apply_impulse( + impulse)	
+		apply_force( + impulse)	
 	elif(steer_thrust != 0):
-		apply_impulse( steer_thrust * impulse )
+		apply_force( steer_thrust * impulse )
 	# idea: no or less thrust if ship is moving backwards already
 	# linear_velocity.angle() direction.angle()
 	elif(Input.is_action_pressed("backward")):
-		apply_impulse( - impulse / 4)	
+		apply_force( - impulse / 4)	
 		
 func _process(delta):
 	

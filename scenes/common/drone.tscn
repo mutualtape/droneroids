@@ -19,13 +19,15 @@ height = 60.0
 size = Vector2(118, 10)
 
 [node name="Drone" type="RigidBody2D"]
+position = Vector2(0, -1)
+collision_layer = 8
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_odv1m")
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_31u16")
 rotationSpeed = 100
-thrust = 60.0
+thrust = 280
 
 [node name="Body" type="Sprite2D" parent="."]
 light_mask = 0

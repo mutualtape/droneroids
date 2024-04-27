@@ -72,8 +72,10 @@ backward={
 
 [layer_names]
 
-2d_physics/layer_1="SolidObject"
-2d_physics/layer_2="LandingField"
+2d_physics/layer_1="Game Objects"
+2d_physics/layer_2="Landing Field"
+2d_physics/layer_3="Blood Cells"
+2d_physics/layer_4="Drone"
 
 [physics]
 

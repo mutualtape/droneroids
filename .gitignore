@@ -1,9 +1,9 @@
 .godot
 .DS_Store
-Droneroids.exe
-Droneroids.dmg
+Nanodrone.exe
+Nanodrone.dmg
 addons/godot-git-plugin
 *-autosave.kra
 *~
-graphics/Song.mp3*
+Song.mp3*
 addons/level-shape*

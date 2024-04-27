@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Droneroids"
+config/name="Nanodrone"
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://assets/Drone.png"
+config/icon="res://assets/graphics/NanodroneBody.png"
 
 [display]
 
@@ -21,7 +21,7 @@ window/stretch/mode="canvas_items"
 
 [dotnet]
 
-project/assembly_name="Droneroids"
+project/assembly_name="Nanodrone"
 
 [editor]
 

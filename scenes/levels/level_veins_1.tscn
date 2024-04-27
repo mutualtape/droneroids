@@ -30,4 +30,25 @@ scale = Vector2(0.345271, 0.345271)
 text = "Haha, wrong way ;)"
 
 [node name="BloodCell" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(203, 44)
+position = Vector2(124, -60)
+scaled_children = 0.9
+
+[node name="BloodCell2" parent="." instance=ExtResource("5_gtg76")]
+position = Vector2(99, 164)
+scaled_children = 0.7
+
+[node name="BloodCell3" parent="." instance=ExtResource("5_gtg76")]
+position = Vector2(350, 206)
+scaled_children = 0.8
+
+[node name="BloodCell4" parent="." instance=ExtResource("5_gtg76")]
+position = Vector2(2600, 371)
+scaled_children = 0.9
+
+[node name="BloodCell5" parent="." instance=ExtResource("5_gtg76")]
+position = Vector2(2333, 646)
+scaled_children = 0.7
+
+[node name="BloodCell6" parent="." instance=ExtResource("5_gtg76")]
+position = Vector2(2287, 275)
+scaled_children = 0.8

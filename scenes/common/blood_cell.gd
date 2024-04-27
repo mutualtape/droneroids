@@ -1,6 +1,23 @@
+@tool
 extends RigidBody2D
 	
 var drone: Drone = null
+
+@export var scaled_children: float = 1:
+	set(new_value):
+		scaled_children = new_value/scaled_children
+		_ready()
+		scaled_children = new_value
+		
+func _ready():
+	apply_scale_on_children(self)
+	
+func apply_scale_on_children(parent: Node2D):	
+	for node in parent.get_children():
+		if(node is Node2D):
+			node.apply_scale(Vector2(scaled_children, scaled_children))
+			apply_scale_on_children(node)
+	
 
 func _physics_process(delta):
 	if(drone != null):

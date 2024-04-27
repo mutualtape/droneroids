@@ -20,14 +20,15 @@ script = ExtResource("1_hnymj")
 modulate = Color(1, 1, 1, 0.384314)
 light_mask = 0
 position = Vector2(0, 6)
-scale = Vector2(0.301309, 0.301309)
+scale = Vector2(0.280002, 0.280002)
 texture = ExtResource("1_6a1vp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(12.04, 12.04)
+scale = Vector2(11.9, 11.9)
 shape = SubResource("CircleShape2D_odj50")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+scale = Vector2(0.95, 0.95)
 occluder = SubResource("OccluderPolygon2D_6jpnr")
 
 [node name="DroneDetectorArea" type="Area2D" parent="."]

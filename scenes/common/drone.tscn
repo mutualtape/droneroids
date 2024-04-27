@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://assets/graphics/light.webp" id="4_e5125"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odv1m"]
-bounce = 0.5
+bounce = 0.3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7rgji"]
 

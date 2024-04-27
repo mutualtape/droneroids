@@ -1,6 +1,12 @@
 extends Node2D
 class_name Game
 
+@export var level : PackedScene
+
+func _ready():
+	var level_node = level.instantiate()
+	$Level.replace_by(level_node)
+
 func _process(_delta):
 	$UI/Touches.text = str($Drone.collision_counter)
 		

@@ -17,12 +17,12 @@ var prev_velocity: Vector2 = Vector2.ZERO
 var over_landing_field: LandingField = null
 var stranded_on: CollisionObject2D = null
 
-@onready var propeller_region_rect: Rect2 = $PropellerLeft.region_rect 
 class PropellerInfo: 
 	var node: Sprite2D
-	var percentage_shown: float = randf()
+	var initial_scale: Vector2
+	var scale_percent: float = randf_range(-1,1)
 	var sign: float = -1
-	func _init(n): node = n
+	func _init(n): node = n; initial_scale = node.scale
 @onready var propeller_left = PropellerInfo.new($PropellerLeft)
 @onready var propeller_right = PropellerInfo.new($PropellerRight)
 
@@ -89,20 +89,12 @@ func _process(delta):
 	
 func animate_propeller(propeller: PropellerInfo, rotation_speed):
 	
-	propeller.percentage_shown += propeller.sign * 20 * rotation_speed
-	if(propeller.percentage_shown <= 0): propeller.sign = 1
-	elif(propeller.percentage_shown >= 1): propeller.sign = -1
+	propeller.scale_percent += 20 * propeller.sign * rotation_speed
+	if(propeller.scale_percent <= -1): propeller.sign = 1
+	elif(propeller.scale_percent >= 1): propeller.sign = -1
+	var new_x = propeller.initial_scale.x * propeller.scale_percent
+	propeller.node.scale = Vector2(new_x, propeller.initial_scale.y)
 	
-	var new_width = propeller_region_rect.size.x * propeller.percentage_shown
-	var diff = propeller_region_rect.size.x - new_width  
-	
-	#print(propeller_percentage_shown, " ", diff/2, "  ", new_width)
-	
-	propeller.node.region_rect = Rect2(
-		diff/2,
-		propeller_region_rect.position.y,
-		new_width,
-		propeller_region_rect.size.y) 
 
 func collision():
 	if(cooldown_timer.is_stopped()):

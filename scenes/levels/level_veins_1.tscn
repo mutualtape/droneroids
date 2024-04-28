@@ -1,54 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt1gq4g3p6i43"]
+[gd_scene load_steps=6 format=3 uid="uid://bmkhgbp7f25nu"]
 
-[ext_resource type="PackedScene" uid="uid://bjdqefx7f7ctv" path="res://scenes/common/level_shape_2D.tscn" id="1_8rnqk"]
-[ext_resource type="Texture2D" uid="uid://cghauyyrxv0h4" path="res://assets/graphics/muscles - from tileable.jpeg" id="2_uqche"]
-[ext_resource type="Texture2D" uid="uid://dam2rd7rnffkm" path="res://assets/graphics/Level1.png" id="3_5end2"]
-[ext_resource type="PackedScene" uid="uid://cabkiwe44ppql" path="res://scenes/common/landing_field.tscn" id="4_y6y5b"]
-[ext_resource type="PackedScene" uid="uid://808j51pfs4yy" path="res://scenes/common/blood_cell.tscn" id="5_gtg76"]
+[ext_resource type="PackedScene" uid="uid://bjdqefx7f7ctv" path="res://scenes/common/level_shape_2D.tscn" id="1_8bice"]
+[ext_resource type="PackedScene" uid="uid://cabkiwe44ppql" path="res://scenes/common/landing_field.tscn" id="1_w80qk"]
+[ext_resource type="Texture2D" uid="uid://stme46hx2te8" path="res://assets/graphics/muscle_texture_2.jpeg" id="2_tk7tf"]
+[ext_resource type="Texture2D" uid="uid://cvt2w23f3w5l3" path="res://assets/graphics/levels/level_veins_heart.png" id="3_og35l"]
+[ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://assets/graphics/light.webp" id="5_msa32"]
 
-[node name="LevelVeins1" type="Node2D"]
+[node name="LevelVein" type="Node2D"]
 
-[node name="LevelShape2" parent="." instance=ExtResource("1_8rnqk")]
-position = Vector2(1849, 826)
-tiled_texture = ExtResource("2_uqche")
-level_shape = ExtResource("3_5end2")
+[node name="LevelObjects" parent="." instance=ExtResource("1_8bice")]
+position = Vector2(-779, -102)
+tiled_texture = ExtResource("2_tk7tf")
+level_shape = ExtResource("3_og35l")
 
-[node name="StartingField2" parent="." instance=ExtResource("4_y6y5b")]
-position = Vector2(0, 28)
+[node name="StartingField" parent="." instance=ExtResource("1_w80qk")]
+position = Vector2(1, 281)
 
-[node name="TargetField2" parent="." instance=ExtResource("4_y6y5b")]
-position = Vector2(3397, 39)
+[node name="TargetField" parent="." instance=ExtResource("1_w80qk")]
+position = Vector2(-2256, -536)
 scale = Vector2(2.79992, 1)
 type = 1
 
-[node name="Label2" type="Label" parent="."]
-offset_left = 332.0
-offset_top = 1024.0
-offset_right = 1052.0
-offset_bottom = 1082.0
-scale = Vector2(0.345271, 0.345271)
-text = "Haha, wrong way ;)"
-
-[node name="BloodCell" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(124, -60)
-scaled_children = 0.9
-
-[node name="BloodCell2" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(99, 164)
-scaled_children = 0.7
-
-[node name="BloodCell3" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(350, 206)
-scaled_children = 0.8
-
-[node name="BloodCell4" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(2600, 371)
-scaled_children = 0.9
-
-[node name="BloodCell5" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(2333, 646)
-scaled_children = 0.7
-
-[node name="BloodCell6" parent="." instance=ExtResource("5_gtg76")]
-position = Vector2(2287, 275)
-scaled_children = 0.8
+[node name="PointLight2DOuter" type="PointLight2D" parent="."]
+visibility_layer = 0
+position = Vector2(-1076, -465)
+energy = 5.0
+range_item_cull_mask = 2
+texture = ExtResource("5_msa32")
+texture_scale = 2.0

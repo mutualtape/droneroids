@@ -1,13 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmkhgbp7f25nu"]
+[gd_scene load_steps=6 format=3 uid="uid://dt1gq4g3p6i43"]
 
+[ext_resource type="PackedScene" uid="uid://bjdqefx7f7ctv" path="res://scenes/common/level_shape_2D.tscn" id="1_8bice"]
 [ext_resource type="PackedScene" uid="uid://cabkiwe44ppql" path="res://scenes/common/landing_field.tscn" id="1_w80qk"]
+[ext_resource type="Texture2D" uid="uid://cghauyyrxv0h4" path="res://assets/graphics/muscle_texture_1.jpeg" id="2_hbm3e"]
+[ext_resource type="Texture2D" uid="uid://dam2rd7rnffkm" path="res://assets/graphics/levels/level_veins_first.png" id="3_7av07"]
+[ext_resource type="PackedScene" uid="uid://808j51pfs4yy" path="res://scenes/common/blood_cell.tscn" id="5_rsqom"]
 
-[node name="LevelVein" type="Node2D"]
+[node name="LevelVeins1" type="Node2D"]
 
-[node name="StartingField" parent="." instance=ExtResource("1_w80qk")]
-position = Vector2(-5, 123)
+[node name="LevelShape2" parent="." instance=ExtResource("1_8bice")]
+position = Vector2(1849, 826)
+tiled_texture = ExtResource("2_hbm3e")
+level_shape = ExtResource("3_7av07")
 
-[node name="TargetField" parent="." instance=ExtResource("1_w80qk")]
-position = Vector2(2489, -246)
+[node name="StartingField2" parent="." instance=ExtResource("1_w80qk")]
+position = Vector2(0, 28)
+
+[node name="TargetField2" parent="." instance=ExtResource("1_w80qk")]
+position = Vector2(3397, 39)
 scale = Vector2(2.79992, 1)
 type = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 332.0
+offset_top = 1024.0
+offset_right = 1052.0
+offset_bottom = 1082.0
+scale = Vector2(0.345271, 0.345271)
+text = "Haha, wrong way ;)"
+
+[node name="BloodCell" parent="." instance=ExtResource("5_rsqom")]
+position = Vector2(124, -60)
+scaled_children = 0.9
+
+[node name="BloodCell2" parent="." instance=ExtResource("5_rsqom")]
+position = Vector2(99, 164)
+scaled_children = 0.7
+
+[node name="BloodCell3" parent="." instance=ExtResource("5_rsqom")]
+position = Vector2(350, 206)
+scaled_children = 0.8
+
+[node name="BloodCell4" parent="." instance=ExtResource("5_rsqom")]
+position = Vector2(2600, 371)
+scaled_children = 0.9
+
+[node name="BloodCell5" parent="." instance=ExtResource("5_rsqom")]
+position = Vector2(2333, 646)
+scaled_children = 0.7
+
+[node name="BloodCell6" parent="." instance=ExtResource("5_rsqom")]
+position = Vector2(2287, 275)
+scaled_children = 0.8

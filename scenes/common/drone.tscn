@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/common/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://assets/graphics/NanodroneBody.png" id="2_2kgip"]
-[ext_resource type="Texture2D" uid="uid://b1lqtlixbkpx0" path="res://assets/graphics/DronePropellerLeft.png" id="3_frr3t"]
-[ext_resource type="Texture2D" uid="uid://bpxekkn1lfioq" path="res://assets/graphics/DronePropellerRight.png" id="4_a8eon"]
+[ext_resource type="Texture2D" uid="uid://b1lqtlixbkpx0" path="res://assets/graphics/NanodronePropellerLeft.png" id="3_mft0f"]
 [ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://assets/graphics/light.webp" id="4_e5125"]
+[ext_resource type="Texture2D" uid="uid://bpxekkn1lfioq" path="res://assets/graphics/NanodronePropellerRight.png" id="4_j3cux"]
 [ext_resource type="AudioStream" uid="uid://b5dml4tj507xy" path="res://assets/propeller_loop.wav" id="5_aqx2b"]
 [ext_resource type="AudioStream" uid="uid://ckwfyuc44ewdy" path="res://assets/collision.wav" id="5_yjq35"]
 
@@ -47,7 +47,7 @@ texture = ExtResource("2_2kgip")
 light_mask = 0
 position = Vector2(-21, -16)
 scale = Vector2(0.06, 0.06)
-texture = ExtResource("3_frr3t")
+texture = ExtResource("3_mft0f")
 region_enabled = true
 region_rect = Rect2(-5.72198, -5.19072, 844.16, 77.5327)
 
@@ -55,7 +55,7 @@ region_rect = Rect2(-5.72198, -5.19072, 844.16, 77.5327)
 light_mask = 0
 position = Vector2(21, -16)
 scale = Vector2(0.06, 0.06)
-texture = ExtResource("4_a8eon")
+texture = ExtResource("4_j3cux")
 region_enabled = true
 region_rect = Rect2(-100.678, -4, 853.678, 74.7131)
 

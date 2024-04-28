@@ -6,7 +6,7 @@ class_name Drone
 @onready var stranded_timer : Timer = Timer.new()
 
 var energy: float = 100
-var energy_max: float = 100
+const energy_max: float = 100
 
 signal over_field(type: LandingField.Type, field: LandingField)
 signal stranded(on: CollisionObject2D)
@@ -44,6 +44,16 @@ func drone_direction() -> Vector2:
 	return (direction_marker.global_position - global_position).normalized()
 
 func _physics_process(delta):
+	
+	# has to run in physics process
+	if(position_reseted):
+		position = Vector2.ZERO
+		rotation = 0
+		sleeping = true
+		position_reseted = false
+		return
+	# though physics is deactivated when paused, applied forces gets added and then "explode" 
+	if(get_tree().paused): return
 	
 	#Idea: making it harder to navigate by adding some randomness to rotation 
 	#add_constant_torque(100)
@@ -111,6 +121,10 @@ func collision():
 	
 func energy_loss(lost_energy):
 	energy -= lost_energy
+
+var position_reseted = false
+func reset_position():
+	position_reseted = true
 
 func _on_collision(_body : CollisionObject2D):
 	var impact = prev_velocity.length()

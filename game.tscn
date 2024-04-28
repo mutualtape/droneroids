@@ -76,7 +76,8 @@ bbcode_enabled = true
 text = "[center]example 
 message[/center]"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BackgroundPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("4_hikr2")
 volume_db = -20.0
 autoplay = true

@@ -37,6 +37,8 @@ func _ready():
 	stranded_timer.one_shot = true
 	stranded_timer.connect("timeout", _on_stranded)
 	add_child(stranded_timer)
+	
+	$PropellerPlayer.play()
 
 func drone_direction() -> Vector2: 
 	return (direction_marker.global_position - global_position).normalized()
@@ -87,21 +89,25 @@ func _process(delta):
 		speed + speed * max(Input.get_action_strength("right"), thrust))
 	animate_propeller(propeller_right, 
 		speed + speed * max(Input.get_action_strength("left"), thrust))
+
+	$PropellerPlayer.pitch_scale = 1 + thrust/2
+	AudioServer.get_bus_effect(1, 0).pan = Input.get_axis("left", "right") * 0.7
+	
 	
 func animate_propeller(propeller: PropellerInfo, rotation_speed):
-	
 	propeller.scale_percent += 20 * propeller.sign * rotation_speed
 	if(propeller.scale_percent <= -1): propeller.sign = 1
 	elif(propeller.scale_percent >= 1): propeller.sign = -1
 	var new_x = propeller.initial_scale.x * propeller.scale_percent
 	propeller.node.scale = Vector2(new_x, propeller.initial_scale.y)
-	
 
 func collision():
 	if(cooldown_timer.is_stopped()):
 		cooldown_timer.start(0.5)
 		energy_loss(prev_velocity.length()/100)
-		$AudioStreamPlayer.play()
+		var new_db = min(prev_velocity.length()/30 - 17, 5)
+		$CollisionPlayer.volume_db = new_db
+		$CollisionPlayer.play()
 	
 func energy_loss(lost_energy):
 	energy -= lost_energy

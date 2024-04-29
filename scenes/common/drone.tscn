@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://chk3bcl33jjts"]
+[gd_scene load_steps=15 format=3 uid="uid://chk3bcl33jjts"]
 
 [ext_resource type="Script" path="res://scenes/common/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://assets/graphics/NanodroneBody.png" id="2_2kgip"]
@@ -11,11 +11,17 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odv1m"]
 bounce = 0.3
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7rgji"]
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
 radius = 13.0
 height = 46.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7rgji"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31hg6"]
+size = Vector2(340, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ka5iv"]
+size = Vector2(20, 45.4289)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3at2d"]
 size = Vector2(48.5101, 5)
@@ -33,6 +39,12 @@ contact_monitor = true
 script = ExtResource("1_31u16")
 rotationSpeed = 100
 thrust = 280
+
+[node name="CollisionShapeDrone" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g1jy6")
+debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
 [node name="Body" type="Sprite2D" parent="."]
 light_mask = 0
@@ -53,17 +65,41 @@ region_rect = Rect2(-5.72198, -5.19072, 844.16, 77.5327)
 
 [node name="PropellerRight" type="Sprite2D" parent="."]
 light_mask = 0
-position = Vector2(21, -16)
+position = Vector2(20.59, -15.78)
 scale = Vector2(0.06, 0.06)
 texture = ExtResource("4_j3cux")
 region_enabled = true
 region_rect = Rect2(-100.678, -4, 853.678, 74.7131)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_g1jy6")
-debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
+[node name="BloodArea" type="Area2D" parent="."]
+position = Vector2(20.59, -15.78)
+scale = Vector2(0.06, 0.06)
+
+[node name="BloodParticles" type="CPUParticles2D" parent="BloodArea"]
+modulate = Color(0.517647, 0.141176, 0.164706, 0.94902)
+position = Vector2(-1809.83, 246.333)
+scale = Vector2(1, 1)
+amount = 100
+lifetime = 2.0
+randomness = 0.36
+emission_shape = 3
+emission_rect_extents = Vector2(100, 1)
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, 10)
+initial_velocity_min = 1000.0
+initial_velocity_max = 2500.0
+scale_amount_max = 5.0
+
+[node name="CollBloodLeft" type="CollisionShape2D" parent="BloodArea"]
+position = Vector2(-909.834, -27.0001)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_31hg6")
+
+[node name="CollBloodRight" type="CollisionShape2D" parent="BloodArea"]
+position = Vector2(223.499, -33.5727)
+scale = Vector2(13.9925, 2.35213)
+shape = SubResource("RectangleShape2D_ka5iv")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -10.4116)
@@ -103,7 +139,7 @@ texture_scale = 6.12
 
 [node name="PointLight2DOuter" type="PointLight2D" parent="."]
 visibility_layer = 0
-position = Vector2(0, 14)
+position = Vector2(9, 15)
 energy = 5.0
 range_item_cull_mask = 2
 texture = ExtResource("4_e5125")
@@ -114,6 +150,8 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [connection signal="body_entered" from="." to="." method="_on_collision"]
+[connection signal="body_shape_entered" from="BloodArea" to="." method="_on_blood_area_body_shape_entered"]
+[connection signal="body_shape_exited" from="BloodArea" to="." method="_on_blood_area_body_shape_exited"]
 [connection signal="body_entered" from="LandingArea" to="." method="_on_landing_area_body_entered"]
 [connection signal="body_exited" from="LandingArea" to="." method="_on_landing_area_body_exited"]
 [connection signal="body_entered" from="StrandedArea" to="." method="_on_stranded_area_body_entered"]

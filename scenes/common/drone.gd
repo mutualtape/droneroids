@@ -23,13 +23,20 @@ class PropellerInfo:
 	var initial_scale: Vector2
 	var scale_percent: float = randf_range(-1,1)
 	var sign: float = -1
+	var blood_particles: Array
 	func _init(n): node = n; initial_scale = node.scale
 @onready var propeller_left = PropellerInfo.new($PropellerLeft)
 @onready var propeller_right = PropellerInfo.new($PropellerRight)
 
+
 func _ready():
 	
 	inertia = 20;
+	
+	$BloodArea/BloodParticles.position = Vector2.ZERO
+	$BloodArea/BloodParticles.emitting = false
+	propeller_left.blood_particles = generate_blood_particles($BloodArea/CollBloodLeft)
+	propeller_right.blood_particles = generate_blood_particles($BloodArea/CollBloodRight)
 	
 	cooldown_timer.one_shot = true
 	add_child(cooldown_timer)
@@ -39,6 +46,17 @@ func _ready():
 	add_child(stranded_timer)
 	
 	$PropellerPlayer.play()
+
+func generate_blood_particles(marker):
+	var blood_down: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
+	var blood_up: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
+	blood_down.direction.y = 1
+	blood_up.direction.y = -1
+	blood_down.position = marker.position
+	blood_up.position = marker.position
+	$BloodArea.add_child(blood_down)
+	$BloodArea.add_child(blood_up)
+	return [blood_down, blood_up]
 
 func drone_direction() -> Vector2: 
 	return (direction_marker.global_position - global_position).normalized()
@@ -151,3 +169,19 @@ func _on_stranded_area_body_exited(_body):
 func _on_stranded():
 	if(drone_direction().y > 0):
 		stranded.emit(stranded_on)
+
+func _on_blood_area_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if(not body is LevelShape2D): return
+	match local_shape_index:
+		0: set_all_emmision_to(propeller_left.blood_particles, true)
+		1: set_all_emmision_to(propeller_right.blood_particles, true)
+
+func _on_blood_area_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if(not body is LevelShape2D): return
+	match local_shape_index:
+		0: set_all_emmision_to(propeller_left.blood_particles, false)
+		1: set_all_emmision_to(propeller_right.blood_particles, false)
+
+func set_all_emmision_to(particles: Array, e: bool):
+	for p in particles: p.emitting = e
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://chk3bcl33jjts"]
+[gd_scene load_steps=16 format=3 uid="uid://chk3bcl33jjts"]
 
 [ext_resource type="Script" path="res://scenes/common/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://assets/graphics/NanodroneBody.png" id="2_2kgip"]
@@ -11,23 +11,26 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odv1m"]
 bounce = 0.3
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
-radius = 13.0
-height = 46.0
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7rgji"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31hg6"]
-size = Vector2(340, 120)
+size = Vector2(353.334, 120)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ka5iv"]
-size = Vector2(20, 45.4289)
+size = Vector2(22.6312, 45.4289)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3at2d"]
 size = Vector2(48.5101, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
-size = Vector2(118, 10)
+size = Vector2(118.859, 5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
+radius = 13.0
+height = 46.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vq2l"]
+size = Vector2(11, 20)
 
 [node name="Drone" type="RigidBody2D"]
 position = Vector2(0, -1)
@@ -39,12 +42,6 @@ contact_monitor = true
 script = ExtResource("1_31u16")
 rotationSpeed = 100
 thrust = 280
-
-[node name="CollisionShapeDrone" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_g1jy6")
-debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
 [node name="Body" type="Sprite2D" parent="."]
 light_mask = 0
@@ -92,12 +89,12 @@ initial_velocity_max = 2500.0
 scale_amount_max = 5.0
 
 [node name="CollBloodLeft" type="CollisionShape2D" parent="BloodArea"]
-position = Vector2(-909.834, -27.0001)
+position = Vector2(-916.5, -27.0001)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_31hg6")
 
 [node name="CollBloodRight" type="CollisionShape2D" parent="BloodArea"]
-position = Vector2(223.499, -33.5727)
+position = Vector2(248.499, -20.3335)
 scale = Vector2(13.9925, 2.35213)
 shape = SubResource("RectangleShape2D_ka5iv")
 
@@ -109,7 +106,7 @@ position = Vector2(0, 25)
 scale = Vector2(0.779016, 1.03319)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LandingArea"]
-position = Vector2(0, -9.27513)
+position = Vector2(0, -12.5824)
 shape = SubResource("RectangleShape2D_3at2d")
 
 [node name="StrandedArea" type="Area2D" parent="."]
@@ -117,7 +114,7 @@ position = Vector2(-1, -93)
 scale = Vector2(0.768467, 0.994867)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StrandedArea"]
-position = Vector2(1, 76)
+position = Vector2(1.73101, 73.8921)
 shape = SubResource("RectangleShape2D_k0x2f")
 debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
@@ -129,7 +126,7 @@ bus = &"Propeller"
 stream = ExtResource("5_yjq35")
 
 [node name="PointLight2DInner" type="PointLight2D" parent="."]
-position = Vector2(0, 13)
+position = Vector2(0, 2)
 energy = 1.1
 shadow_enabled = true
 shadow_filter = 1
@@ -139,7 +136,7 @@ texture_scale = 6.12
 
 [node name="PointLight2DOuter" type="PointLight2D" parent="."]
 visibility_layer = 0
-position = Vector2(9, 15)
+position = Vector2(0, 2)
 energy = 5.0
 range_item_cull_mask = 2
 texture = ExtResource("4_e5125")
@@ -148,6 +145,20 @@ texture_scale = 2.0
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
 position_smoothing_enabled = true
+
+[node name="CollisionShapeBody" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g1jy6")
+debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-18, -7)
+shape = SubResource("RectangleShape2D_3vq2l")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(18, -6)
+shape = SubResource("RectangleShape2D_3vq2l")
 
 [connection signal="body_entered" from="." to="." method="_on_collision"]
 [connection signal="body_shape_entered" from="BloodArea" to="." method="_on_blood_area_body_shape_entered"]

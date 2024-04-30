@@ -1,9 +1,6 @@
 extends RigidBody2D
 class_name Drone
 
-@onready var direction_marker : Marker2D = $Marker2D
-@onready var cooldown_timer : Timer = Timer.new()
-
 var energy: float = 100
 const energy_max: float = 100
 
@@ -11,10 +8,6 @@ signal over_field(type: LandingField.Type, field: LandingField)
 
 @export var rotationSpeed: int 
 @export var thrust: int 
-
-var prev_velocity: Vector2 = Vector2.ZERO
-var over_landing_field: LandingField = null
-var stranded_on: CollisionObject2D = null
 
 class PropellerInfo: 
 	var node: Sprite2D
@@ -29,42 +22,23 @@ class PropellerInfo:
 
 func _ready():
 	
-	inertia = 20;
+	inertia = 20
 	
-	$BloodArea/BloodParticles.position = Vector2.ZERO
-	$BloodArea/BloodParticles.emitting = false
-	propeller_left.blood_particles = generate_blood_particles($BloodArea/CollBloodLeft)
-	propeller_right.blood_particles = generate_blood_particles($BloodArea/CollBloodRight)
+	init_blood()
 	
 	cooldown_timer.one_shot = true
 	add_child(cooldown_timer)
 	
 	$PropellerPlayer.play()
 
-func generate_blood_particles(marker):
-	var blood_down: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
-	var blood_up: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
-	blood_down.direction.y = 1
-	blood_up.direction.y = -1
-	blood_down.position = marker.position
-	blood_up.position = marker.position
-	$BloodArea.add_child(blood_down)
-	$BloodArea.add_child(blood_up)
-	return [blood_down, blood_up]
-
 func drone_direction() -> Vector2: 
-	return (direction_marker.global_position - global_position).normalized()
+	return ($Marker2D.global_position - global_position).normalized()
 
 func _physics_process(delta):
 	
 	# has to run in physics process
-	if(position_reseted):
-		position = Vector2.ZERO
-		rotation = 0
-		sleeping = true
-		position_reseted = false
-		return
-	# though physics is deactivated when paused, applied forces gets added and then "explode" 
+	if(position_reseted): apply_reset_position(); return
+	# though physics is deactivated when paused, forces would accumulate and then cause a "rocket start" 
 	if(get_tree().paused): return
 	
 	#Idea: making it harder to navigate by adding some randomness to rotation 
@@ -89,7 +63,7 @@ func _physics_process(delta):
 		# smooth out spinning eg, after bouncing against a wall
 		angular_velocity /= 1 + delta * 2;
 	
-	# apply thurst
+	# apply thrust
 	if(Input.is_action_pressed("forward")):
 		apply_force( + impulse)	
 	elif(steer_thrust != 0):
@@ -122,6 +96,26 @@ func animate_propeller(propeller: PropellerInfo, rotation_speed):
 	elif(propeller.scale_percent >= 1): propeller.sign = -1
 	var new_x = propeller.initial_scale.x * propeller.scale_percent
 	propeller.node.scale = Vector2(new_x, propeller.initial_scale.y)
+	
+func energy_loss(lost_energy):
+	energy -= lost_energy
+
+
+# reset ship position and movement has to happen within physics process
+var position_reseted = false
+func reset_position():
+	position_reseted = true
+func apply_reset_position():
+	position = Vector2.ZERO
+	rotation = 0
+	sleeping = true
+	position_reseted = false
+
+# Collision handling
+
+@onready var cooldown_timer : Timer = Timer.new()
+var over_landing_field: LandingField = null
+var prev_velocity: Vector2 = Vector2.ZERO
 
 func collision():
 	if(cooldown_timer.is_stopped()):
@@ -130,13 +124,6 @@ func collision():
 		var new_db = min(prev_velocity.length()/30 - 17, 5)
 		$CollisionPlayer.volume_db = new_db
 		$CollisionPlayer.play()
-	
-func energy_loss(lost_energy):
-	energy -= lost_energy
-
-var position_reseted = false
-func reset_position():
-	position_reseted = true
 
 func _on_collision(_body : CollisionObject2D):
 	var impact = prev_velocity.length()
@@ -152,19 +139,33 @@ func _on_landing_area_body_exited(body):
 	if(body is LandingField):
 		over_landing_field = null
 
-
+# Blood
+func init_blood():
+	$BloodArea/BloodParticles.position = Vector2.ZERO
+	$BloodArea/BloodParticles.emitting = false
+	propeller_left.blood_particles = generate_blood_particles($BloodArea/CollBloodLeft)
+	propeller_right.blood_particles = generate_blood_particles($BloodArea/CollBloodRight)
+	$BloodArea/BloodParticles.free()
+func generate_blood_particles(marker):
+	var blood_down: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
+	var blood_up: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
+	blood_down.direction.y = 1
+	blood_up.direction.y = -1
+	blood_down.position = marker.position
+	blood_up.position = marker.position
+	$BloodArea.add_child(blood_down)
+	$BloodArea.add_child(blood_up)
+	return [blood_down, blood_up]
 func _on_blood_area_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if(not body is LevelShape2D): return
 	match local_shape_index:
 		0: set_all_emmision_to(propeller_left.blood_particles, true)
 		1: set_all_emmision_to(propeller_right.blood_particles, true)
-
 func _on_blood_area_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
 	if(not body is LevelShape2D): return
 	match local_shape_index:
 		0: set_all_emmision_to(propeller_left.blood_particles, false)
 		1: set_all_emmision_to(propeller_right.blood_particles, false)
-
 func set_all_emmision_to(particles: Array, e: bool):
 	for p in particles: p.emitting = e
 

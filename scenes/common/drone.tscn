@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://chk3bcl33jjts"]
+[gd_scene load_steps=21 format=3 uid="uid://chk3bcl33jjts"]
 
 [ext_resource type="Script" path="res://scenes/common/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://assets/graphics/NanodroneBody.png" id="2_2kgip"]
@@ -6,16 +6,46 @@
 [ext_resource type="Texture2D" uid="uid://5hagqv34b4id" path="res://assets/graphics/light.webp" id="4_e5125"]
 [ext_resource type="Texture2D" uid="uid://bpxekkn1lfioq" path="res://assets/graphics/NanodronePropellerRight.png" id="4_j3cux"]
 [ext_resource type="AudioStream" uid="uid://b5dml4tj507xy" path="res://assets/propeller_loop.wav" id="5_aqx2b"]
+[ext_resource type="Texture2D" uid="uid://btitr2p3s4023" path="res://assets/graphics/blood_drop.png" id="5_sxt70"]
 [ext_resource type="AudioStream" uid="uid://ckwfyuc44ewdy" path="res://assets/collision.wav" id="5_yjq35"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_odv1m"]
 bounce = 0.3
 
+[sub_resource type="Gradient" id="Gradient_xvgay"]
+colors = PackedColorArray(0.52549, 0.12549, 0.117647, 1, 0.777529, 0.217255, 0.201371, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u0tp0"]
+gradient = SubResource("Gradient_xvgay")
+width = 232
+
+[sub_resource type="Gradient" id="Gradient_u8yxd"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_count = 2
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rws05"]
+gradient = SubResource("Gradient_u8yxd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jdd1i"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 1, 0)
+direction = Vector3(0, -1, 0)
+spread = 40.0
+initial_velocity_min = 1000.0
+initial_velocity_max = 2500.0
+gravity = Vector3(0, 90, 0)
+scale_min = 0.3
+scale_max = 0.6
+color = Color(0.65098, 0.227451, 0.164706, 0.901961)
+color_ramp = SubResource("GradientTexture1D_rws05")
+color_initial_ramp = SubResource("GradientTexture1D_u0tp0")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31hg6"]
-size = Vector2(383.333, 183.333)
+size = Vector2(483.334, 183.333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ka5iv"]
-size = Vector2(26.2045, 77.9436)
+size = Vector2(30.969, 70.8578)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3at2d"]
 size = Vector2(48.5101, 5)
@@ -68,29 +98,24 @@ region_rect = Rect2(-100.678, -4, 853.678, 74.7131)
 position = Vector2(20.59, -15.78)
 scale = Vector2(0.06, 0.06)
 
-[node name="BloodParticles" type="CPUParticles2D" parent="BloodArea"]
-modulate = Color(0.517647, 0.141176, 0.164706, 0.94902)
+[node name="BloodParticles" type="GPUParticles2D" parent="BloodArea"]
 position = Vector2(-2743.18, 246.333)
 amount = 200
+process_material = SubResource("ParticleProcessMaterial_jdd1i")
+texture = ExtResource("5_sxt70")
 lifetime = 2.0
+explosiveness = 0.1
 randomness = 0.36
-emission_shape = 3
-emission_rect_extents = Vector2(100, 1)
-direction = Vector2(0, -1)
-spread = 25.0
-gravity = Vector2(0, 90)
-initial_velocity_min = 1000.0
-initial_velocity_max = 2500.0
-scale_amount_min = 2.0
-scale_amount_max = 4.0
+fixed_fps = 0
+draw_order = 0
 
 [node name="CollBloodLeft" type="CollisionShape2D" parent="BloodArea"]
-position = Vector2(-934.833, -12)
-scale = Vector2(1, 1)
+position = Vector2(-984.833, -12)
+scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_31hg6")
 
 [node name="CollBloodRight" type="CollisionShape2D" parent="BloodArea"]
-position = Vector2(256.833, -12)
+position = Vector2(290.167, -20.3335)
 scale = Vector2(13.9925, 2.35213)
 shape = SubResource("RectangleShape2D_ka5iv")
 
@@ -114,7 +139,6 @@ stream = ExtResource("5_yjq35")
 
 [node name="PointLight2DInner" type="PointLight2D" parent="."]
 position = Vector2(0, 2)
-energy = 1.1
 shadow_enabled = true
 shadow_filter = 1
 shadow_filter_smooth = 3.2

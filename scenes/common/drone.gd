@@ -147,10 +147,10 @@ func init_blood():
 	propeller_right.blood_particles = generate_blood_particles($BloodArea/CollBloodRight)
 	$BloodArea/BloodParticles.free()
 func generate_blood_particles(marker):
-	var blood_down: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
-	var blood_up: CPUParticles2D = $BloodArea/BloodParticles.duplicate()
-	blood_down.direction.y = 1
-	blood_up.direction.y = -1
+	var blood_down = $BloodArea/BloodParticles.duplicate()
+	var blood_up = $BloodArea/BloodParticles.duplicate()
+	blood_down.rotation_degrees = 180
+	blood_up.rotation_degrees = 0
 	blood_down.position = marker.position
 	blood_up.position = marker.position
 	$BloodArea.add_child(blood_down)

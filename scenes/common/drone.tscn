@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://chk3bcl33jjts"]
+[gd_scene load_steps=15 format=3 uid="uid://chk3bcl33jjts"]
 
 [ext_resource type="Script" path="res://scenes/common/drone.gd" id="1_31u16"]
 [ext_resource type="Texture2D" uid="uid://bwkl20ks2fhy1" path="res://assets/graphics/NanodroneBody.png" id="2_2kgip"]
@@ -21,9 +21,6 @@ size = Vector2(22.6312, 45.4289)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3at2d"]
 size = Vector2(48.5101, 5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0x2f"]
-size = Vector2(118.859, 5)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1jy6"]
 radius = 13.0
@@ -75,7 +72,6 @@ scale = Vector2(0.06, 0.06)
 [node name="BloodParticles" type="CPUParticles2D" parent="BloodArea"]
 modulate = Color(0.517647, 0.141176, 0.164706, 0.94902)
 position = Vector2(-1809.83, 246.333)
-scale = Vector2(1, 1)
 amount = 100
 lifetime = 2.0
 randomness = 0.36
@@ -86,11 +82,10 @@ spread = 15.0
 gravity = Vector2(0, 10)
 initial_velocity_min = 1000.0
 initial_velocity_max = 2500.0
-scale_amount_max = 5.0
+scale_amount_max = 4.0
 
 [node name="CollBloodLeft" type="CollisionShape2D" parent="BloodArea"]
 position = Vector2(-916.5, -27.0001)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_31hg6")
 
 [node name="CollBloodRight" type="CollisionShape2D" parent="BloodArea"]
@@ -108,15 +103,6 @@ scale = Vector2(0.779016, 1.03319)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LandingArea"]
 position = Vector2(0, -12.5824)
 shape = SubResource("RectangleShape2D_3at2d")
-
-[node name="StrandedArea" type="Area2D" parent="."]
-position = Vector2(-1, -93)
-scale = Vector2(0.768467, 0.994867)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StrandedArea"]
-position = Vector2(1.73101, 73.8921)
-shape = SubResource("RectangleShape2D_k0x2f")
-debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
 [node name="PropellerPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_aqx2b")
@@ -152,11 +138,11 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g1jy6")
 debug_color = Color(0.811765, 0.219608, 0.847059, 0.0745098)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShapeLeft" type="CollisionShape2D" parent="."]
 position = Vector2(-18, -7)
 shape = SubResource("RectangleShape2D_3vq2l")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShapeRight" type="CollisionShape2D" parent="."]
 position = Vector2(18, -6)
 shape = SubResource("RectangleShape2D_3vq2l")
 
@@ -165,5 +151,3 @@ shape = SubResource("RectangleShape2D_3vq2l")
 [connection signal="body_shape_exited" from="BloodArea" to="." method="_on_blood_area_body_shape_exited"]
 [connection signal="body_entered" from="LandingArea" to="." method="_on_landing_area_body_entered"]
 [connection signal="body_exited" from="LandingArea" to="." method="_on_landing_area_body_exited"]
-[connection signal="body_entered" from="StrandedArea" to="." method="_on_stranded_area_body_entered"]
-[connection signal="body_exited" from="StrandedArea" to="." method="_on_stranded_area_body_exited"]

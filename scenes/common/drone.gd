@@ -3,13 +3,11 @@ class_name Drone
 
 @onready var direction_marker : Marker2D = $Marker2D
 @onready var cooldown_timer : Timer = Timer.new()
-@onready var stranded_timer : Timer = Timer.new()
 
 var energy: float = 100
 const energy_max: float = 100
 
 signal over_field(type: LandingField.Type, field: LandingField)
-signal stranded(on: CollisionObject2D)
 
 @export var rotationSpeed: int 
 @export var thrust: int 
@@ -40,10 +38,6 @@ func _ready():
 	
 	cooldown_timer.one_shot = true
 	add_child(cooldown_timer)
-	
-	stranded_timer.one_shot = true
-	stranded_timer.connect("timeout", _on_stranded)
-	add_child(stranded_timer)
 	
 	$PropellerPlayer.play()
 
@@ -158,17 +152,6 @@ func _on_landing_area_body_exited(body):
 	if(body is LandingField):
 		over_landing_field = null
 
-func _on_stranded_area_body_entered(body):
-	stranded_on = body
-	stranded_timer.start(4)
-
-func _on_stranded_area_body_exited(_body):
-	stranded_timer.stop()
-	stranded_on = null
-	
-func _on_stranded():
-	if(drone_direction().y > 0):
-		stranded.emit(stranded_on)
 
 func _on_blood_area_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if(not body is LevelShape2D): return

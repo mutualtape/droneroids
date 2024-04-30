@@ -11,9 +11,6 @@ func _ready():
 signal interacted
 func _input(event):
 	interacted.emit()
-
-func _game_over_stranded(collision_node):
-	print("poor turtle not implemented in multi level")	
 	
 func _on_base_level_finished(stat: Global.GameStat):
 	game_stats.append(stat)

@@ -1,8 +1,12 @@
 @tool
 extends Node2D
 
-@export var debug_level_scene : PackedScene
-
+@export var debug_level_scene: PackedScene:
+	set(scene): 
+		debug_level_scene = scene 
+		if(Engine.is_editor_hint()): instantiate_level(scene)
+	get: return debug_level_scene
+	
 signal finished(stat: Global.GameStat)
 
 @onready var drone = $Drone
@@ -17,15 +21,23 @@ func _ready():
 		load_level(debug_level_scene)
 		start_level()
 
-func load_level(level: PackedScene):
+func load_level(scene: PackedScene):
 	if(current_level != null):
 		current_level.free()
 	drone.reset_position()
 	level_timer_millis = 0
 	level_started = false
-	current_level = level.instantiate()
 	get_tree().paused = true
-	add_child(current_level)
+	current_level = instantiate_level(scene)
+
+func instantiate_level(scene: PackedScene):
+	var new_node = scene.instantiate()
+	var former_node = $Level
+	former_node.name = "LevelTmp"
+	new_node.name = "Level"
+	$LevelTmp.replace_by(new_node)
+	former_node.free()
+	return new_node
 	
 func start_level():
 	level_timer_millis = 0
